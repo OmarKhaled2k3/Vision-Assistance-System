@@ -60,9 +60,9 @@ AKAZE = cv2.DescriptorMatcher_create(cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
 # This is an array, each of the elements is a name directory of image.
 # Dataset array
 TraingIMGArr = ["TrainingData/100F.jpg","TrainingData/100B.jpg",
-                "TrainingData/200F.jpg","TrainingData/200B.jpg"
+                "TrainingData/200F.jpg","TrainingData/200B.jpg",
                 "TrainingData/5F.jpg","TrainingData/5B.jpg",
-                "TrainingData/20F.jpg","TrainingData/20B.jpg"
+                "TrainingData/20F.jpg","TrainingData/20B.jpg",
                 "TrainingData/50F.jpg","TrainingData/50B.jpg"
                 ]
 
@@ -146,7 +146,7 @@ def facerec():
             names.append(name)
     # loop over the recognized faces
     for ((top, right, bottom, left), name) in zip(boxes, names):
-            pyttsx3.speak(name)
+            #pyttsx3.speak(name)
             # draw the predicted face name on the image
             cv2.rectangle(frame, (left, top), (right, bottom),
                     (0, 255, 0), 2)
@@ -172,7 +172,7 @@ def  Money():
     mask_sub1 = cv2.inRange(hsv_img , lower1, upper1)
     mask_sub2 = cv2.inRange(hsv_img , lower2, upper2)
     mask = cv2.bitwise_or(mask_sub1,mask_sub2)
-    _,contours, hierarchy = cv2.findContours(mask,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv2.findContours(mask,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     suma=0
     for cnt in contours:
         area = cv2.contourArea(cnt)
@@ -212,7 +212,7 @@ def  Money():
             #Print running time
             print("THAT IS - " + PrintingElement[index_element_arr]) #After run all dataset, print to console which money was detected
             #cv2.putText(frame,PrintingElement[index_element_arr],
-            pyttsx3.speak(PrintingElement[index_element_arr])
+            #pyttsx3.speak(PrintingElement[index_element_arr])
             cv2.putText(frame, PrintingElement[index_element_arr], org, font, 
                fontScale, colors, thickness, cv2.LINE_AA)
         else:
@@ -268,7 +268,7 @@ def decode_predictions(scores, geometry):
 	# return a tuple of the bounding boxes and associated confidences
 	return (rects, confidences)
 def ocrfunc():
-    if GPIO.event_detected(12):
+    if key & 0xFF==ord ('m'):
         start = time.time()
         cv2.imwrite("test.jpg", frame)
         image = cv2.imread("test.jpg")
@@ -354,7 +354,7 @@ def ocrfunc():
                     cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 3)
             # show the output image
             cv2.imshow("Text Detection", output)
-            pyttsx3.speak(text)
+            #pyttsx3.speak(text)
     
 
 def color():
@@ -402,7 +402,7 @@ def color():
 
             cv2.circle(frame,(cx,cy),7,(255,255,255),-1)
             cv2.putText(frame, "Yellow",(cx-20,cy-20),cv2.FONT_HERSHEY_SIMPLEX,2.5,(255,255,255),3)
-            pyttsx3.speak("Yellow")
+            #pyttsx3.speak("Yellow")
 
     for c in cnts2:
         area2 = cv2.contourArea(c)
@@ -416,7 +416,7 @@ def color():
 
             cv2.circle(frame, (cx, cy), 7, (255, 255, 255), -1)
             cv2.putText(frame, "Green", (cx - 20, cy - 20), cv2.FONT_HERSHEY_SIMPLEX, 2.5, (255, 255, 255), 3)
-            pyttsx3.speak("Green")
+            #pyttsx3.speak("Green")
 
     for c in cnts3:
         area3 = cv2.contourArea(c)
@@ -430,7 +430,7 @@ def color():
 
             cv2.circle(frame, (cx, cy), 7, (255, 255, 255), -1)
             cv2.putText(frame, "Red", (cx - 20, cy - 20), cv2.FONT_HERSHEY_SIMPLEX, 2.5, (255, 255, 255), 3)
-            pyttsx3.speak("Red")
+            #pyttsx3.speak("Red")
 
     for c in cnts4:
         area4 = cv2.contourArea(c)
@@ -444,9 +444,10 @@ def color():
 
             cv2.circle(frame, (cx, cy), 7, (255, 255, 255), -1)
             cv2.putText(frame, "Blue", (cx - 20, cy - 20), cv2.FONT_HERSHEY_SIMPLEX, 2.5, (255, 255, 255), 3)
-            pyttsx3.speak("Blue")
+            #pyttsx3.speak("Blue")
 while True:
     ret, frame = cam.read()
+    frame = cv2.resize(frame, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
     key=cv2.waitKey (1)
     if switch == 0:
         color()
@@ -468,6 +469,6 @@ while True:
             switch =0
             print ("zERO",switch)
     cv2.imshow('img',frame)
-    rawCapture.truncate(0)
+    #rawCapture.truncate(0)
 cv2.destroyAllWindows()
 
