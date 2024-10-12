@@ -1,4 +1,4 @@
-# Smart Glasses for the Visually Impaired
+# Vision Assistance System
 This project aims to assist visually impaired individuals by providing real-time information about their surroundings through wearable smart glasses. Equipped with a Raspberry Pi, camera, and speakers, the glasses offer audible feedback about detected objects, text, faces, and more.
 
 ## Features
